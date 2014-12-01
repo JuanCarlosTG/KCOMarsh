@@ -1,5 +1,5 @@
 1
-39
+38
 720x720/images/KCOMarshEnergy.png
 720x720/images/KCOMarshLogIn.png
 720x720/images/KCOMarshMenu.png
@@ -18,7 +18,6 @@ buttons/SecAsegurador.png
 buttons/SecAseguradorPressed.png
 buttons/Segmentos.png
 buttons/SegmentosPressed.png
-example.qml
 googlerssfeeds.json
 images/beer1.png
 images/beer2.png

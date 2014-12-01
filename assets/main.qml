@@ -45,7 +45,7 @@ NavigationPane {
                         positionY: 493.0
                     }
                     preferredWidth: 560
-                    hintText: "Usuario"
+                    hintText: "Usuario final"
 
                 }
                 
