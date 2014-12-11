@@ -6,17 +6,20 @@ Page {
         titleBar: TitleBar {
             title: "Energía"
             scrollBehavior: TitleBarScrollBehavior.Sticky
-        appearance: TitleBarAppearance.Default
-    }
+            appearance: TitleBarAppearance.Default
+        }
+        
+        //Main container
         Container {
             background: Color.create("#ff00c3ba")
-        layout: DockLayout {}
+            layout: DockLayout {}
             
+            //child container    
             Container {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                //! [0]
-                // A control to switch between the two news sources
+                
+                // A control to switch between the news sources
                 DropDown {
                     id: newsSources
                     title: "Selecciona el Rubro"
@@ -39,6 +42,7 @@ Page {
                         value: "yahoorssfeeds.json"
                         text: "Energía y Poder"
                     }
+                    
                     onSelectedValueChanged: {
                         // Illustrating usage of DropDown signal handler
                         console.debug("Number of pints 
@@ -82,7 +86,7 @@ Page {
                                 }
                                 
                                 Divider {
-                                    verticalAlignment: VerticalAlignment.Fill
+                                    verticalAlignment: VerticalAlignment.Center
                                 }
                             }
                         }

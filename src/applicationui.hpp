@@ -37,9 +37,31 @@ class QTranslator;
 class ApplicationUI : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString postBody READ postBody WRITE setPostBody NOTIFY postBodyChanged)
+    Q_PROPERTY(QString postBodyPass READ postBodyPass WRITE setPostBodyPass NOTIFY postBodyChanged)
+    //Q_PROPERTY(bool useHttps READ useHttps WRITE setUseHttps NOTIFY useHttpsChanged)
+
 public:
     ApplicationUI();
     virtual ~ApplicationUI() {}
+
+    Q_SIGNALS:
+    void postBodyChanged();
+    void useHttpsChanged();
+
+private:
+    void setPostBody(const QString &body);
+    void setPostBodyPass(const QString &body);
+    QString postBody() const;
+    QString postBodyPass() const;
+
+    QString m_postBody;
+    QString m_postBodyPass;
+
+    void setUseHttps(bool value);
+    bool useHttps() const;
+
 private slots:
     void onSystemLanguageChanged();
 private:

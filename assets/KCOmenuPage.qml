@@ -1,4 +1,7 @@
 import bb.cascades 1.2
+import Network.PostHttp 1.0
+import "controls"
+import my.library 1.0
 Page {
     Container {
         layout: DockLayout {}
@@ -60,10 +63,61 @@ Page {
                 defaultImageSource: "asset:///buttons/SecAsegurador.png"
                 pressedImageSource: "asset:///buttons/SecAseguradorPressed.png"
             }
+            
+            TextArea {
+                id: postResponseBody
+                visible: false
+                editable: false
+                backgroundVisible: false
+                
+                textStyle {
+                    base: SystemDefaults.TextStyles.BodyText;
+                    color: Color.White
+                }
+            }
+        }
+        
+        NetworkActivity {
+            id: progressIndicator
+            
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            
+            title: qsTr("Posting...")
+        }
+        
+        attachedObjects: [
+            QTimer {
+                id: timer
+                interval: 1000
+                onTimeout: {
+                    // One second after page loads make the http post request
+                    netpost.post(_httpsample.postBody, _httpsample.postBodyPass);
+                }
+            },
+            PostHttp {
+                id : netpost
+                onComplete :{
+                    progressIndicator.active = false;
+                    progressIndicator.visible = false;
+                    
+                    postResponseBody.text = info;
+                    postResponseBody.visible = true;
+                    //postResponseLabel.visible = true;
+                    
+                    timer.stop();
+                }
+            }
+        ]
+        
+        onCreationCompleted: {
+            progressIndicator.active = true;
+            timer.start();
         }
     }
     
     attachedObjects: [
+        
         ComponentDefinition {
             id: prueba
             source: "asset:///KCOPractices.qml"

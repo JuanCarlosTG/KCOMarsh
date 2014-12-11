@@ -72,6 +72,8 @@ NavigationPane {
                     defaultImageSource: "asset:///buttons/ENTRAR.png"
                     pressedImageSource: "asset:///buttons/ENTRAR.png"
                     onClicked: {
+                        _httpsample.postBody = usuario.text
+                        _httpsample.postBodyPass = pass.text
                         var newPage = menuPageID.createObject();
                         mainNP.push(newPage);
                     } 
@@ -83,6 +85,7 @@ NavigationPane {
                 // Page objects onto the NavigationPane stack
                 mainNP.push(menuPageID);
                 mainNP.push(prueba);
+                mainNP.push(prueba2);
                 //mainNP.push(fourthPage);
             }
             background: Color.create("#ff00005a")
@@ -98,7 +101,12 @@ NavigationPane {
              ComponentDefinition {
                 id: prueba
                 source: "asset:///KCOPractices.qml"
-            }
+            },
+             
+             ComponentDefinition {
+                  id: prueba2
+                  source: "asset:///KCOPruebaConexion.qml"   
+             }
         ]
     } //End Page
 

@@ -15,7 +15,8 @@
  */
 
 #include "applicationui.hpp"
-
+#include "PostHttp.hpp"
+#include "AppSettings.hpp"
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
@@ -40,10 +41,18 @@ ApplicationUI::ApplicationUI() :
     // initial load
     onSystemLanguageChanged();
 
+        QCoreApplication::setApplicationName("KCOMarsh");
+
+        //add Post class as qml type
+        qmlRegisterType<PostHttp>("Network.PostHttp", 1, 0, "PostHttp");
+
+        //add a QTimer class as a qml type
+        qmlRegisterType<QTimer>("my.library", 1, 0, "QTimer");
+
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
-
+    qml->setContextProperty("_httpsample", this);
     // Create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
 
@@ -61,3 +70,47 @@ void ApplicationUI::onSystemLanguageChanged()
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
 }
+
+void ApplicationUI::setPostBody(const QString &body)
+{
+    if (m_postBody == body)
+        return;
+    m_postBody = body;
+    emit postBodyChanged();
+}
+
+void ApplicationUI::setPostBodyPass(const QString &body)
+{
+    if (m_postBodyPass == body)
+        return;
+
+    m_postBodyPass = body;
+    emit postBodyChanged();
+}
+
+QString ApplicationUI::postBody() const
+{
+    return m_postBody;
+}
+
+QString ApplicationUI::postBodyPass() const
+{
+    return m_postBodyPass;
+}
+
+//! [1]
+void ApplicationUI::setUseHttps(bool value)
+{
+    if (AppSettings::isUsingHttps() == value)
+        return;
+
+    AppSettings::setHttps(value);
+    emit useHttpsChanged();
+}
+
+bool ApplicationUI::useHttps() const
+{
+    return AppSettings::isUsingHttps();
+}
+//! [1]
+

@@ -4,10 +4,28 @@ BASEDIR = $$quote($$_PRO_FILE_PWD_)
 device {
     CONFIG(debug, debug|release) {
         profile {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            LIBS += -lbbdata \
+                -lQtNetwork
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
         } else {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            LIBS += -lbbdata \
+                -lQtNetwork
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -17,6 +35,15 @@ device {
 
     CONFIG(release, debug|release) {
         !profile {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            LIBS += -lbbdata \
+                -lQtNetwork
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -27,6 +54,15 @@ device {
 simulator {
     CONFIG(debug, debug|release) {
         !profile {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork) \
+                $$quote(${QNX_TARGET}/usr/include/bb/data)
+
+            LIBS += -lbbdata \
+                -lQtNetwork
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -46,6 +82,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/KCONewsExample.qml) \
         $$quote($$BASEDIR/assets/KCOOffices.qml) \
         $$quote($$BASEDIR/assets/KCOPractices.qml) \
+        $$quote($$BASEDIR/assets/KCOPruebaConexion.qml) \
         $$quote($$BASEDIR/assets/KCOmenuPage.qml) \
         $$quote($$BASEDIR/assets/buttons/ENTRAR.png) \
         $$quote($$BASEDIR/assets/buttons/Negocio.png) \
@@ -58,6 +95,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/buttons/SecAseguradorPressed.png) \
         $$quote($$BASEDIR/assets/buttons/Segmentos.png) \
         $$quote($$BASEDIR/assets/buttons/SegmentosPressed.png) \
+        $$quote($$BASEDIR/assets/controls/NetworkActivity.qml) \
         $$quote($$BASEDIR/assets/googlerssfeeds.json) \
         $$quote($$BASEDIR/assets/images/KCOMarshEnergy.png) \
         $$quote($$BASEDIR/assets/images/KCOMarshLogIn.png) \
@@ -78,10 +116,15 @@ config_pri_assets {
 
 config_pri_source_group1 {
     SOURCES += \
+        $$quote($$BASEDIR/src/AppSettings.cpp) \
+        $$quote($$BASEDIR/src/PostHttp.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
-    HEADERS += $$quote($$BASEDIR/src/applicationui.hpp)
+    HEADERS += \
+        $$quote($$BASEDIR/src/AppSettings.hpp) \
+        $$quote($$BASEDIR/src/PostHttp.hpp) \
+        $$quote($$BASEDIR/src/applicationui.hpp)
 }
 
 CONFIG += precompile_header
@@ -107,6 +150,9 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/buttons/*.qml) \
         $$quote($$BASEDIR/../assets/buttons/*.js) \
         $$quote($$BASEDIR/../assets/buttons/*.qs) \
+        $$quote($$BASEDIR/../assets/controls/*.qml) \
+        $$quote($$BASEDIR/../assets/controls/*.js) \
+        $$quote($$BASEDIR/../assets/controls/*.qs) \
         $$quote($$BASEDIR/../assets/images/*.qml) \
         $$quote($$BASEDIR/../assets/images/*.js) \
         $$quote($$BASEDIR/../assets/images/*.qs)
